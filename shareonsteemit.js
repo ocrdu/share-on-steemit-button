@@ -38,12 +38,12 @@ function check() {
 function postArticle() {
   var username = document.getElementById("account").value;
   var postingkey = document.getElementById("key").value;
-  var category = "donations";
+  var category = "donations"; // First tag hardcoded here
   var title = document.getElementById("title").value;
   var permlink = new Date().toISOString().replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
   permlink += "-how-to-donate-to-ocrdu";
   var body = document.getElementById("article").value;
-  steem.broadcast.comment(postingkey, "", category, username, permlink, title, body, {tags: [category, "ocrdu", "donationpage", "", ""]},
+  steem.broadcast.comment(postingkey, "", category, username, permlink, title, body, {tags: [category, "ocrdu", "donationpage", "", ""]}, // Other tags hardcoded here
   function (err, result) {
     if (err) {
       alert('Something went wrong: ' + err);
