@@ -9,7 +9,7 @@ function check() {
   var account = document.getElementById("account").value;
   var key = document.getElementById("key").value;
   var title = document.getElementById("title").value;
-  var article = document.getElementById("article").innerHTML;
+  var article = document.getElementById("article").value;
   if (title.length>0 && article.length>0 &&
       account.length > 2  &&
       account.length < 17  &&
@@ -19,8 +19,8 @@ function check() {
       key.length == 51 && 
 	  key.charAt(0) == "5" && 
 	  /^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$/.test(key) && 
-	  document.getElementById("title").value.length > 0 && 
-	  document.getElementById("article").value.length > 0) {
+	  title.length > 0 && 
+	  article.length > 0) {
     document.getElementById("postbutton").disabled = false;
 	document.getElementById("postbutton").style.backgroundColor = "#06D6A9";
 	document.getElementById("postbutton").style.color = "black";
