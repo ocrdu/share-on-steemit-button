@@ -6,6 +6,7 @@ All you need to put a simple share-on-Steemit button on a web page. Just put eve
 Note: - that there may be a newer version of steem.min.js on Github;
       - that the user must enter their private publishing key, not any other key;
       - that there is only minimal input checking;
-      - that the categories/tags of the posting made are hardcoded in shareonsteemit.js; you may want to change them.
+      - that the categories/tags of the posting made are hardcoded in shareonsteemit.js; you may want to change them;
+      - that the permlink is hardcoded in shareonsteemit.js; you may want to change it. Make sure it is a valid slug.
 
 If you feel like donating for this, you can do so here: ocrdu.nl/donations. The share-on-Steemit button can be seen on that page as well.

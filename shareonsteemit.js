@@ -41,7 +41,7 @@ function postArticle() {
   var category = "donations"; // First tag hardcoded here
   var title = document.getElementById("title").value;
   var permlink = new Date().toISOString().replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
-  permlink += "-how-to-donate-to-ocrdu";
+  permlink += "-shared-on-steemit"; // Change this bit of the permlink if you want, but make sure it stays valid
   var body = document.getElementById("article").value;
   steem.broadcast.comment(postingkey, "", category, username, permlink, title, body, {tags: [category, "ocrdu", "donationpage", "", ""]}, // Other tags hardcoded here
   function (err, result) {
