@@ -55,8 +55,8 @@ function postArticle() {
 }
 
 function slugify(string) {
-  const a = 'àáäâãåăæçèéëêǵḧìíïîḿńǹñòóöôœøṕŕßśșțùúüûǘẃẍÿýź·/_,:;'
-  const b = 'aaaaaaaaceeeeghiiiimnnnooooooprssstuuuuuwxyyz------'
+  const a = 'æąàáäâãåăæčćçðđęèéëêǵḧìíïîłḿńǹñòóöôœøṕŕßšśșþțùúüûǘẃẍÿýžżź·/_,:;'
+  const b = 'aaaaaaaaaacccddeeeeeghiiiilmnnnooooooprssssttuuuuuwxyyzzz------'
   const p = new RegExp(a.split('').join('|'), 'g')
   string = transliterateCyrillic(string);
   string = transliterateGreek(string);
