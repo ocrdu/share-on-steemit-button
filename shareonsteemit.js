@@ -38,12 +38,12 @@ function check() {
 function postArticle() {
   var username = document.getElementById("account").value;
   var postingkey = document.getElementById("key").value;
-  var category = "donations"; // First tag hardcoded here
+  var category = "sharedonsteemit"; // First tag hardcoded here
   var title = document.getElementById("title").value;
   var uniquestring = new Date().toISOString().replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
   var permlink = slugify(uniquestring + "-" + title + "-shared on steemit");
   var body = document.getElementById("article").value;
-  steem.broadcast.comment(postingkey, "", category, username, permlink, title, body, {tags: [category, "ocrdu", "donationpage", "", ""]}, // Other tags hardcoded here
+  steem.broadcast.comment(postingkey, "", category, username, permlink, title, body, {tags: [category, "ocrdu", "donate", "", ""]}, // Other tags hardcoded here
   function (err, result) {
     if (err) {
       alert('Something went wrong: ' + err);
