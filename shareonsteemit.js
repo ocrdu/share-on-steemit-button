@@ -40,8 +40,8 @@ function postArticle() {
   var postingkey = document.getElementById("key").value;
   var category = "donations"; // First tag hardcoded here
   var title = document.getElementById("title").value;
-  var permlink = new Date().toISOString().replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
-  permlink += "-shared-on-steemit"; // Change this bit of the permlink if you want, but make sure it is a valid slug
+  var uniquestring = new Date().toISOString().replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
+  var permlink = slugify(uniquestring + "-" + title + "-shared on steemit");
   var body = document.getElementById("article").value;
   steem.broadcast.comment(postingkey, "", category, username, permlink, title, body, {tags: [category, "ocrdu", "donationpage", "", ""]}, // Other tags hardcoded here
   function (err, result) {
@@ -52,4 +52,34 @@ function postArticle() {
 	  window.close();
     }
   });
+}
+
+function slugify(string) {
+  const a = 'àáäâãåăæçèéëêǵḧìíïîḿńǹñòóöôœøṕŕßśșțùúüûǘẃẍÿýź·/_,:;'
+  const b = 'aaaaaaaaceeeeghiiiimnnnooooooprssstuuuuuwxyyz------'
+  const p = new RegExp(a.split('').join('|'), 'g')
+  string = transliterateCyrillic(string);
+  string = transliterateGreek(string);
+  return string.toString().toLowerCase()
+    .replace(/\s+/g, '-') // Replace spaces with -
+    .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
+    .replace(/&/g, '-and-') // Replace & with ‘and’
+    .replace(/[^\w\-]+/g, '') // Remove all non-word characters
+    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+    .replace(/^-+/, '') // Trim - from start of text
+    .replace(/-+$/, '') // Trim - from end of text
+}
+
+function transliterateGreek(string){
+  var a = {"Α":"A","Β":"B","Γ":"G","Δ":"D","Ε":"E","Ζ":"Z","Η":"I","Θ":"Th","Ι":"I","Κ":"K","Λ":"L","Μ":"M","Ν":"N","Ξ":"X","Ο":"O","Π":"P","Ρ":"R","Σ":"S","Τ":"T","Υ":"Y","Φ":"F","Χ":"Ch","Ψ":"Ps","Ω":"o","α":"a","β":"b","γ":"g","δ":"d","ε":"e","ζ":"z","η":"i","θ":"th","ι":"i","κ":"k","λ":"l","μ":"m","ν":"n","ξ":"x","ο":"o","π":"p","ρ":"r","σ":"s","ς":"s","τ":"t","υ":"y","φ":"f","χ":"ch","ψ":"ps","ω":"o","Ά":"Á","Έ":"É","Ή":"Í","Ί":"Í","Ό":"Ó","Ύ":"Ý","Ώ":"Ó","ά":"á","έ":"é","ή":"í","ί":"í","ό":"ó","ύ":"ý","ώ":"ó","Ϊ":"Ï","Ϋ":"Ÿ","ϊ":"ï","ϋ":"ÿ","ΐ":"ï","ΰ":"ÿ"};
+  return string.split('').map(function (char) { 
+    return a[char] || char; 
+  }).join("");
+}
+
+function transliterateCyrillic(string){
+  var a = {"Ё":"Yo","Й":"I","Ц":"Ts","У":"U","К":"K","Е":"E","Н":"N","Г":"G","Ш":"Sh","Щ":"Sch","З":"Z","Х":"H","Ъ":"'","ё":"yo","й":"i","ц":"ts","у":"u","к":"k","е":"e","н":"n","г":"g","ш":"sh","щ":"sch","з":"z","х":"h","ъ":"'","Ф":"F","Ы":"I","В":"V","А":"a","П":"P","Р":"R","О":"O","Л":"L","Д":"D","Ж":"Zh","Э":"E","ф":"f","ы":"i","в":"v","а":"a","п":"p","р":"r","о":"o","л":"l","д":"d","ж":"zh","э":"e","Я":"Ya","Ч":"Ch","С":"S","М":"M","И":"I","Т":"T","Ь":"'","Б":"B","Ю":"Yu","я":"ya","ч":"ch","с":"s","м":"m","и":"i","т":"t","ь":"'","б":"b","ю":"yu"};
+  return string.split('').map(function (char) { 
+    return a[char] || char; 
+  }).join("");
 }
