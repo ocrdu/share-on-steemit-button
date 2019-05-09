@@ -2,7 +2,13 @@
 <html lang="en">
   <head><title>Share page on Steemit</title>
     <meta charset="UTF-8">
+	<style type="text/css">
+      h1,h2,h3,h4,h5,h6 {
+        font-family: Arial,Helvetica,sans-serif;
+      }
+	</style>
     <script src="steem.min.js"></script>
+    <script src="showdown.min.js"></script>
 	<script src="shareonsteemit.js"></script>
   </head>
   <body style="background-color:#B2FFEE" onload="pasteParams()">
@@ -19,10 +25,11 @@
       <div style="text-align:center;">
         <input type="text" id="title" placeholder="Title" size="80" maxlength="150" value="" onfocus="this.placeholder=''" onblur="this.placeholder='Title'" style="font-weight:bold; text-align:center; outline:none;" oninput="check()">
 		<br><br>
-        <textarea id="article" rows="10" cols="80" oninput="check()" style="outline:none;"></textarea>
+        <textarea id="article" rows="10" cols="80" oninput="check();preview();" style="outline:none;"></textarea>
 		<br><br>
         <input id="postbutton" type="button" style="font-weight:bold; background-color:#CCCCCC; color:#AAAAAA; padding:7px 16px; text-align:center; outline:none; border-radius:16px;" value="Post on Steemit" onClick="postArticle()" disabled>
       </div>
     </form>
+	<div id="preview"></div>
   </body>
 </html>

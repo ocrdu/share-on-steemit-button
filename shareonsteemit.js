@@ -35,6 +35,11 @@ function check() {
   }
 }
 
+function preview() {
+  var converter = new showdown.Converter();
+  document.getElementById("preview").innerHTML = '<br><br><hr><h4 style="text-align:center;">Preview:</h4><div style="background-color:white; padding:5px;">' + converter.makeHtml(document.getElementById("article").value) + '</div>';
+}
+
 function postArticle() {
   var username = document.getElementById("account").value;
   var postingkey = document.getElementById("key").value;
