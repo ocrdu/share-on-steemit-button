@@ -1,8 +1,18 @@
-function pasteParams() {
-  if (location.search.length == 0) {return false;};
-  document.getElementById("title").setAttribute("value", decodeURI(location.search.slice(0).split("&")[0].split("=")[1]));
-  document.getElementById("article").value = decodeURI(location.search.slice(0).split("&")[1].split("=")[1]);
-  document.getElementById("article").innerHTML = document.getElementById("article").value;
+async function pasteParams() {
+  var params = location.search;
+  if (params.indexOf("&") != -1 && params.indexOf("title=") != -1 && params.indexOf("article=") != -1){
+    document.getElementById("title").setAttribute("value", decodeURI(params.slice(0).split("&")[0].split("=")[1]));
+    document.getElementById("article").value = decodeURI(params.slice(0).split("&")[1].split("=")[1]);
+    document.getElementById("article").innerHTML = document.getElementById("article").value;
+  }
+  try {
+    var response = await fetch("pageblurb.txt");
+    var blurbtext = await response.text()
+    document.getElementById("article").value = blurbtext;
+    document.getElementById("article").innerHTML = blurbtext;
+  } catch(error){
+    console.log("No pageblurb.txt found: " + error);
+  }
 }
 
 function check() {

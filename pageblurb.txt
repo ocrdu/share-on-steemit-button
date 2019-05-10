@@ -1,0 +1,6 @@
+<h4>This is a placeholder text.</h4>
+
+You can put the text you want to see shared for your page in the file *pageblurb.txt.*
+
+*If you delete pageblurb.txt, the article will only automatically show the URL of the page the button is on.*
+
