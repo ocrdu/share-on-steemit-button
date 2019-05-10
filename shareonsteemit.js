@@ -1,7 +1,8 @@
 function pasteParams() {
   if (location.search.length == 0) {return false;};
   document.getElementById("title").setAttribute("value", decodeURI(location.search.slice(0).split("&")[0].split("=")[1]));
-  document.getElementById("article").innerHTML = decodeURI(location.search.slice(0).split("&")[1].split("=")[1]);
+  document.getElementById("article").value = decodeURI(location.search.slice(0).split("&")[1].split("=")[1]);
+  document.getElementById("article").innerHTML = document.getElementById("article").value;
 }
 
 function check() {
@@ -35,9 +36,25 @@ function check() {
   }
 }
 
+function resizeWindow() {
+  var contentheight = document.getElementById("all").getBoundingClientRect().height;
+  var availableheight = screen.height - window.screenY -100;
+  if (contentheight < availableheight){
+    window.resizeBy(0, contentheight - window.innerHeight + 10);
+  }
+  if (contentheight > availableheight){
+    window.resizeBy(0, availableheight - window.innerHeight);
+  }
+}
+
 function preview() {
-  var converter = new showdown.Converter();
-  document.getElementById("preview").innerHTML = '<br><br><hr><h4 style="text-align:center;">Preview:</h4><div style="background-color:white; padding:5px;">' + converter.makeHtml(document.getElementById("article").value) + '</div>';
+  if (document.getElementById("article").value.length == 0) {
+    document.getElementById("preview").innerHTML = "";
+  } else {
+    var converter = new showdown.Converter();
+    document.getElementById("preview").innerHTML = '<br><hr><h4 style="text-align:center;">Preview:</h4><div style="background-color:white; padding:5px; border-width:1px; border-style:inset;">' + converter.makeHtml(document.getElementById("article").value) + '</div>';
+  }
+  resizeWindow();
 }
 
 function postArticle() {
