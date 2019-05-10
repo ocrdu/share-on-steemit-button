@@ -41,8 +41,7 @@ function resizeWindow() {
   var availableheight = screen.height - window.screenY -100;
   if (contentheight < availableheight){
     window.resizeBy(0, contentheight - window.innerHeight + 10);
-  }
-  if (contentheight > availableheight){
+  } else {
     window.resizeBy(0, availableheight - window.innerHeight);
   }
 }
