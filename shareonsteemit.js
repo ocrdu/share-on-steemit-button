@@ -1,4 +1,4 @@
-async function pasteParams() {
+function pasteParams() {
   var params = location.search;
   if (params.indexOf("&") != -1 && params.indexOf("title=") != -1 && params.indexOf("article=") != -1){
     document.getElementById("title").setAttribute("value", decodeURIComponent(params.slice(0).split("&")[0].split("=")[1]));
@@ -6,10 +6,17 @@ async function pasteParams() {
     document.getElementById("article").innerHTML = document.getElementById("article").value;
   }
   try {
-    var response = await fetch("pageblurb.txt");
-    var blurbtext = await response.text()
-    document.getElementById("article").value = blurbtext;
-    document.getElementById("article").innerHTML = blurbtext;
+    var blurbRequest = new XMLHttpRequest(); //Should probably be implemented with fetch and promises these days, 
+    blurbRequest.open("GET", "pageblurb.txt", true); //but I couldn't get that to work consistently in all browsers
+    blurbRequest.onreadystatechange = processBlurb;
+    blurbRequest.send(null);
+    function processBlurb() {
+      if (blurbRequest.readyState == 4 && blurbRequest.status == 200) {
+        var blurbtext = blurbRequest.responseText;
+        document.getElementById("article").value = blurbtext;
+        document.getElementById("article").innerHTML = blurbtext;
+      }
+    }
   } catch(error){
     console.log("No pageblurb.txt found: " + error);
   }
@@ -74,7 +81,7 @@ function postArticle() {
   var uniquestring = new Date().toISOString().replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
   var permlink = slugify(uniquestring + "-" + title + "-shared on steemit");
   var body = document.getElementById("article").value;
-  steem.broadcast.comment(postingkey, "", category, username, permlink, title, body, {tags: [category, "ocrdu", "donate", "donations", ""]}, // Other tags hardcoded here
+  steem.broadcast.comment(postingkey, "", category, username, permlink, title, body, {tags: [category, "ocrdu", "donate", "", ""]}, // Other tags hardcoded here
   function (err, result) {
     if (err) {
       alert('Something went wrong: ' + err);
