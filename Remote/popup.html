@@ -2,14 +2,14 @@
 <html lang="en" id="all">
   <head><title>Share page on Steemit</title>
     <meta charset="UTF-8">
-	<style>
-    h1,h2,h3,h4,h5,h6 {
-      font-family: Arial,Helvetica,sans-serif;
-    }
-	</style>
-    <script src="steem.min.js"></script>
+    <style>
+      h1,h2,h3,h4,h5,h6 {
+        font-family: Arial,Helvetica,sans-serif;
+      }
+    </style>
+    <script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
     <script src="showdown.min.js"></script>
-	<script src="shareonsteemit.js"></script>
+    <script src="shareonsteemit.js"></script>
   </head>
   <body style="background-color:#B2FFEE" onload="pasteParams(); resizeWindow();">
     <form>
@@ -24,11 +24,16 @@
       <br><hr><br>
       <div style="text-align:center;">
         <input type="text" id="title" placeholder="Title" size="80" maxlength="150" value="" onfocus="this.placeholder=''" onblur="this.placeholder='Title'" style="font-weight:bold; text-align:center; outline:none;" oninput="check()">
-		<br><br>
+  	    <br><br>
         <textarea id="article" rows="10" cols="80" oninput="check();preview();" style="outline:none;"></textarea>
-		<br><br>
+  	    <br><br>
         <input id="postbutton" type="button" style="font-weight:bold; background-color:#CCCCCC; color:#AAAAAA; padding:7px 16px; text-align:center; outline:none; border-radius:16px;" value="Post on Steemit" onClick="postArticle()" disabled>
       </div>
+      <input type="hidden" id="tag0" value="">
+      <input type="hidden" id="tag1" value="">
+      <input type="hidden" id="tag2" value="">
+      <input type="hidden" id="tag3" value="">
+      <input type="hidden" id="tag4" value="">
     </form>
 	<div id="preview"></div>
   </body>

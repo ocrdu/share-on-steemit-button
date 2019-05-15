@@ -1,13 +1,12 @@
 function pasteParams() {
-  var params = location.search;
-  if (params.indexOf("&") != -1 && params.indexOf("title=") != -1 && params.indexOf("article=") != -1){
-    document.getElementById("title").setAttribute("value", decodeURIComponent(params.slice(0).split("&")[0].split("=")[1]));
-    document.getElementById("article").value = decodeURIComponent(params.slice(0).split("&")[1].split("=")[1]);
-    document.getElementById("article").innerHTML = document.getElementById("article").value;
-  }
+  var path = window.opener.document.location.toString();
+  path = path.substr(0, path.lastIndexOf("\/")) + "/";
+  document.getElementById("title").setAttribute("value", window.opener.document.title);
+  document.getElementById("article").value = window.opener.location.href;
+  document.getElementById("article").innerHTML = window.opener.location.href;
   try {
     var blurbRequest = new XMLHttpRequest(); //Should probably be implemented with fetch and promises these days, 
-    blurbRequest.open("GET", "pageblurb.txt", true); //but I couldn't get that to work consistently in all browsers
+    blurbRequest.open("GET", path + "pageblurb.txt", true); //but I couldn't get that to work consistently in all browsers
     blurbRequest.onreadystatechange = processBlurb;
     blurbRequest.send(null);
     function processBlurb() {
@@ -18,7 +17,30 @@ function pasteParams() {
       }
     }
   } catch(error){
-    console.log("No pageblurb.txt found: " + error);
+    console.log("Couldn't read pageblurb.txt: " + error);
+  }
+  document.getElementById("tag0").value = "sharedonsteemit"
+  try {
+    var tagsRequest = new XMLHttpRequest(); 
+    tagsRequest.open("GET", path + "pagetags.txt", true);
+    tagsRequest.onreadystatechange = processTags;
+    tagsRequest.send(null);
+    function processTags() {
+      if (tagsRequest.readyState == 4 && tagsRequest.status == 200) {
+        var tagstext = tagsRequest.responseText.toLowerCase().replace(/[^\w\s]/g,"").replace(/[\d_]/g,"");
+        var tagsarray = tagstext.split(" ");
+        tagsarray.splice(5);
+        var i, tagno;
+        for (i = 0; i < tagsarray.length; i++) {
+          tagno = "tag" + i.toString();
+          if (tagsarray[i].length > 2) {
+            document.getElementById(tagno).value = tagsarray[i];
+          }
+        }
+      }
+    }
+  } catch(error){
+    console.log("Couldn't read pagetags.txt: " + error);
   }
 }
 
@@ -29,27 +51,27 @@ function check() {
   var title = document.getElementById("title").value;
   var article = document.getElementById("article").value;
   if (title.length>0 && article.length>0 &&
-      account.length > 2  &&
-      account.length < 17  &&
+    account.length > 2  &&
+    account.length < 17  &&
 	  /^[a-z0-9\-\.]+$/.test(account)  &&
 	  /^[a-z]$/.test(account.charAt(0))  &&
 	  /^[a-z0-9]$/.test(account.charAt(account.length-1))  &&
-      key.length == 51 && 
+    key.length == 51 && 
 	  key.charAt(0) == "5" && 
 	  /^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$/.test(key) && 
 	  title.length > 0 && 
 	  article.length > 0) {
     document.getElementById("postbutton").disabled = false;
-	document.getElementById("postbutton").style.backgroundColor = "#06D6A9";
-	document.getElementById("postbutton").style.color = "black";
-	document.getElementById("postbutton").style.borderColor = "#5FBA7D";
-	document.getElementById("postbutton").style.cursor = "pointer";
+	  document.getElementById("postbutton").style.backgroundColor = "#06D6A9";
+	  document.getElementById("postbutton").style.color = "black";
+	  document.getElementById("postbutton").style.borderColor = "#5FBA7D";
+	  document.getElementById("postbutton").style.cursor = "pointer";
   } else {
     document.getElementById("postbutton").disabled = true;
     document.getElementById("postbutton").style.backgroundColor = "#CCCCCC";
-	document.getElementById("postbutton").style.color = "#AAAAAA";
-	document.getElementById("postbutton").style.borderColor = "";
-	document.getElementById("postbutton").style.cursor = "default";
+	  document.getElementById("postbutton").style.color = "#AAAAAA";
+	  document.getElementById("postbutton").style.borderColor = "";
+	  document.getElementById("postbutton").style.cursor = "default";
   }
 }
 
@@ -76,12 +98,16 @@ function preview() {
 function postArticle() {
   var username = document.getElementById("account").value;
   var postingkey = document.getElementById("key").value;
-  var category = "sharedonsteemit"; // First tag hardcoded here
   var title = document.getElementById("title").value;
   var uniquestring = new Date().toISOString().replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
   var permlink = slugify(uniquestring + "-" + title + "-shared on steemit");
   var body = document.getElementById("article").value;
-  steem.broadcast.comment(postingkey, "", category, username, permlink, title, body, {tags: [category, "ocrdu", "donate", "donations", ""]}, // Other tags hardcoded here
+  var category = document.getElementById("tag0").value;
+  var tag1 = document.getElementById("tag1").value;
+  var tag2 = document.getElementById("tag2").value;
+  var tag3 = document.getElementById("tag3").value;
+  var tag4 = document.getElementById("tag4").value;
+  steem.broadcast.comment(postingkey, "", category, username, permlink, title, body, {tags: [category, tag1, tag2, tag3, tag4]},
   function (err, result) {
     if (err) {
       alert('Something went wrong: ' + err);
