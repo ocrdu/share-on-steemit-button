@@ -2,8 +2,8 @@ function pasteParams() {
   var path = window.opener.document.location.toString();
   path = path.substr(0, path.lastIndexOf("\/")) + "/";
   document.getElementById("title").setAttribute("value", window.opener.document.title);
-  document.getElementById("article").value = window.opener.location.href;
-  document.getElementById("article").innerHTML = window.opener.location.href;
+  document.getElementById("article").value = "<hr>\n\n*Shared from: " + window.opener.location.href + "*\n\n<hr>";
+  document.getElementById("article").innerHTML = document.getElementById("article").value;
   try {
     var blurbRequest = new XMLHttpRequest(); //Should probably be implemented with fetch and promises these days, 
     blurbRequest.open("GET", path + "pageblurb.txt", true); //but I couldn't get that to work consistently in all browsers
@@ -12,8 +12,8 @@ function pasteParams() {
     function processBlurb() {
       if (blurbRequest.readyState == 4 && blurbRequest.status == 200) {
         var blurbtext = blurbRequest.responseText;
-        document.getElementById("article").value = blurbtext;
-        document.getElementById("article").innerHTML = blurbtext;
+        document.getElementById("article").value += "\n\n" + blurbtext;
+        document.getElementById("article").innerHTML += "\n\n" + blurbtext;
       }
     }
   } catch(error){

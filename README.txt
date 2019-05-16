@@ -13,7 +13,7 @@ A working demo can be found at https://ocrdu.nl/sosbtest/example.html.
 Note that: - the user must enter their private publishing key, not any other key;
            - there is only minimal input checking, but it keeps the worst crud out;
            - the categories/tags of the posting made are in pagetags.txt;
-           - the blurb you want to show for the shared page is in pageblurb.txt;
+           - the blurb you want to show for the shared pages is in pageblurb.txt;
            - the slugifier that makes the permlink only does Latin, Greek, and Cyrillic alphabets;
            - a preview of the posting is activated by editing the body of the posting.
 
