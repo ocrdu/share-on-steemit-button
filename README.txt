@@ -1,10 +1,10 @@
 A simple Share-on-Steemit button
 
-All you need to put a simple share-on-Steemit button on a web page. Put everything from the root directory in a directory together somewhere on a server and the example.html should work; you can put the DIV and its contents from the example in your own webpage.
+All you need to put a simple share-on-Steemit button on a web page. Put everything from the root directory in a directory together somewhere on a server, and the contents of the "remote" directory in another location on the same server, and point the <BASE> in the example.html to the right directory, and the example.html should work; you can put the DIV and its contents from the example in your own webpage.
 
 Don't forget to include the <BASE> element from the example.html file in the HEAD of your webpage-to-be-shared as well. This may break other links on your page; the alternative is setting a path to the place where the files in the "remote" directory are stored by hand in many places. I'm working on a better solution for this (trying to avoid server-side configuration).
 
-For now, I am hosting the files that are in the "remote" directory; please host them yourself and edit the <BASE> accordingly.
+Note that all files must be on the same server.
 
 A working demo can be found at https://ocrdu.nl/sosbtest/example.html.
 
