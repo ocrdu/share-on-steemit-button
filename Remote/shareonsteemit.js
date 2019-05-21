@@ -2,7 +2,7 @@ function pasteParams() {
   var path = window.opener.document.location.toString();
   path = path.substr(0, path.lastIndexOf("\/")) + "/";
   document.getElementById("title").setAttribute("value", window.opener.document.title);
-  document.getElementById("article").value = "<hr>\n\n*Shared from: " + window.opener.location.href + "*\n\n<hr>";
+  document.getElementById("article").value = "<hr>\n\n*<sup>Shared from: " + window.opener.location.href + "</sup>*\n\n<hr>";
   document.getElementById("article").innerHTML = document.getElementById("article").value;
   try {
     var blurbRequest = new XMLHttpRequest(); //Should probably be implemented with fetch and promises these days, 
