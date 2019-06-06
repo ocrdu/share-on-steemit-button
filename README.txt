@@ -17,4 +17,4 @@ Note that: - the user must enter their private publishing key, not any other key
            - the slugifier that makes the permlink only does Latin, Greek, and Cyrillic alphabets;
            - a preview of the posting is activated by editing the body of the posting.
 
-If you feel like donating for this, you can do so here: ocrdu.nl/donations. The share-on-Steemit button can be seen on that page as well (but it is an older, dedicated version, not this last version).
+If you feel like donating for this, you can do so here: ocrdu.nl/donations. The share-on-Steemit button can be seen on that page as well.
