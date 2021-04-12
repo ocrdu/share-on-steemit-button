@@ -11,8 +11,6 @@ Note that after these steps I would still be hosting the scripts for you; please
 - Put the contents of the "remote" directory in a directory on a server of your choice;
 - Point the SRC of the SCRIPT in the DIV you just put into your webpage to that directory.
 
-A working demo can be found at https://ocrdu.nl/sosbtest/example.html.
-
 Note that: - the user must enter their private publishing key, not any other key;
            - there is only minimal input checking, but it keeps the worst crud out;
            - the categories/tags of the posting made are in pagetags.txt;
